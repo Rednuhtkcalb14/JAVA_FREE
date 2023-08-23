@@ -54,7 +54,7 @@ public class BankAccount {
         this.monthly = monthly;
     }
 
-    public String openAccount(String accountType){
+    public void openAccount(String accountType){
         Random random = new Random();
         int rand = random.nextInt(1000, 10000);
         if(accountType.equals("cc") && !this.status) {
@@ -62,20 +62,19 @@ public class BankAccount {
             this.setAccountBalance(50);
             this.setMonthly(12);
             this.setAccountNum(rand);
-            return "CC account open";
         } else if(accountType.equals("cp") && !this.status){
             this.setStatus(true);
             this.setAccountBalance(150);
             this.setMonthly(20);
             this.setAccountNum(rand);
-            return "CP account open";
         }
-        return "You just have an account";
     }
 
     public void closeAccount() {
-        if (this.getAccountBalance() == 0 && this.status && this.accountBalance >= 0) {
+        if (this.getAccountBalance() == 0 && this.status) {
             this.setStatus(false);
+            this.monthly = 0;
+            this.accountNum = 0;
         }
     }
 
@@ -92,6 +91,6 @@ public class BankAccount {
     }
 
     public void withdraw(float money) {
-
+        this.accountBalance -= money;
     }
 }
